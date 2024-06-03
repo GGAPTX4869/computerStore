@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zgg.store.mapper.AddressMapper">
+    <insert id="insert" parameterType="Address" useGeneratedKeys="true" keyProperty="aid">
+        insert into t_address (uid,name,province_name,province_code,city_name,city_code,area_name,area_code,zip,address,phone,tel,tag,is_default,created_user,created_time,modified_user,modified_time)
+            values (#{uid},#{name},#{provinceName},#{provinceCode},#{cityName},#{cityCode},#{areaName},#{areaCode},#{zip},#{address},#{phone},#{tel},#{tag},#{isDefault},#{createdUser},#{createdTime},#{modifiedUser},#{modifiedTime})
+    </insert>
+    <select id="countByUid" resultType="Integer">
+        select count(*) from t_address where uid=#{uid}
+    </select>
+    <select id="findByUid" resultType="Address">
+        select * from t_address where uid=#{uid} order by is_default DESC,created_time DESC
+    </select>
+    <select id="findByAid" resultType="Address">
+        select * from t_address where aid=#{aid}
+    </select>
+    <update id="UpdateNonDefault">
+        update t_address set is_default=0 where uid=#{uid}
+    </update>
+    <update id="updateDefaultByAid">
+        update t_address
+        set is_default=1,modified_user=#{modifiedUser},modified_time=#{modifiedTime}
+        where aid=#{aid}
+    </update>
+    <delete id="deleteByAid">
+        delete from t_address where aid=#{aid}
+    </delete>
+    <select id="findLastModified" resultType="Address">
+        select * from t_address where uid=#{uid} order by modified_time desc limit 0,1
+    </select>
+</mapper>

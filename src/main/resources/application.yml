@@ -1,0 +1,24 @@
+
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/store?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    multipart:
+#      max-file-size: 10MB
+#      max-request-size: 15MB
+
+mybatis:
+  type-aliases-package: com.lzj.store.entity
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+user:
+  address:
+    max-count: 20
+server:
+  port: 8080
